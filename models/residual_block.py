@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
-
+''' unfinished
 class ResidualBlock(nn.Module):
     def __init__(self, in_channel, out_channel, stride=1, shortcut=None):
         super(ResidualBlock, self).__init__()
@@ -20,6 +20,8 @@ class ResidualBlock(nn.Module):
         out = out + residual
         out = F.relu(out)
         return out
+
+'''
 
 model = ResidualBlock(128, 64)
 print(model)

@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
-from complexConv import ComplexCon1D, ComplexCon2D
+from .complexConv import ComplexCon1D, ComplexCon2D
 
 class AlexNet1D(nn.Module):
     def make_layers_with_pooling(self, in_channel, out_channel):

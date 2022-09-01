@@ -5,7 +5,7 @@ import torchvision.models as models
 import torchsummary
 import numpy as np
 
-from alexNet import AlexNet1D
+from models.alexNet import AlexNet1D
 
 device = "cpu"
 

@@ -29,7 +29,6 @@ class ComplexCon1D(nn.Module):
         self.Conv_image_2 = nn.Conv1d(out_channel//2, out_channel//2, 3, 1, 1, bias=False)
     def forward(self, x):
         x_real, x_image = torch.chunk(x, 2, dim=1)
-        print(x_real.dtype)
         x1_real = self.Conv_real_1(x_real) - self.Conv_image_1(x_image)
         x1_image = self.Conv_image_1(x_real) + self.Conv_real_1(x_image)
         x2_real = self.Conv_real_2(x1_real) - self.Conv_image_2(x1_image)

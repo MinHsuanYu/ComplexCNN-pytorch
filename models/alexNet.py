@@ -1,4 +1,5 @@
 from re import fullmatch
+from time import sleep
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -21,16 +22,19 @@ class AlexNet1D(nn.Module):
         self.Dense = nn.Linear(hidden_channel * (regression_channel // (2 ** layer_nums)), 2048)
         self.real = nn.Linear(2048, regression_channel)
         self.image = nn.Linear(2048, regression_channel)
+        self.regression_channel = regression_channel
 
     def forward(self, x):
         hidden = self.in_layer(x)
         for layers in self.hidden_layers:
             hidden = layers(hidden)
         feature = self.feature_final(hidden)
-        feature = feature.flatten(0)
+        feature = feature.flatten(1)
         fully_connection = self.Dense(feature)
         out_real = self.real(fully_connection)
         out_iamge = self.image(fully_connection)
-
-        return out_real, out_iamge
+        out_real = out_real.reshape(-1, 1, self.regression_channel)
+        out_iamge = out_iamge.reshape(-1, 1, self.regression_channel)
+        outputs = torch.cat((out_real, out_iamge), dim=1)
+        return outputs
         

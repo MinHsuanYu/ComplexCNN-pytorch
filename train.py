@@ -1,3 +1,4 @@
+from statistics import mode
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -29,7 +30,9 @@ class ComplexDataset(Dataset):
     def __len__(self):
         return self.n_samples
 
-epochs = 1
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+epochs = 100
 batch_size = 20
 Criterion = nn.MSELoss()
 lr = 0.001
@@ -41,7 +44,7 @@ ethlon = 0.5
 input_path = '0830/'
 complex_dataset = ComplexDataset(input_path)
 data_loader = DataLoader(dataset=complex_dataset, batch_size = batch_size, shuffle = True)
-model = AlexNet1D(64, 7)
+model = AlexNet1D(64, 7).to(device)
 opt = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9)
 
 loss_recorder = []
@@ -50,6 +53,8 @@ for epoch in range(epochs):
     print("="*10, "epoch: ", epoch, "="*10, sep='')
     for i, (inputs, targets) in enumerate(data_loader):
         opt.zero_grad()
+        inputs = inputs.to('cuda')
+        targets = targets.to('cuda')
         outputs = model(inputs)
         Loss = Criterion(outputs, targets)
         loss_recorder.append(Loss.item())
@@ -57,5 +62,6 @@ for epoch in range(epochs):
         Loss.backward()
         opt.step()
 
+torch.save(model, 'model.pt')
 plt.plot(loss_recorder)
 plt.show()

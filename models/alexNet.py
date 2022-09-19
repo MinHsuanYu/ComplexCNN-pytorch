@@ -9,11 +9,12 @@ from .complexConv import ComplexCon1D, ComplexCon2D
 class AlexNet1D(nn.Module):
     def make_layers_with_pooling(self, in_channel, out_channel):
         return nn.Sequential(
-            ComplexCon1D(in_channel, out_channel),
+            ComplexCon1D(in_channel, out_channel).to(self.device),
             nn.MaxPool1d(3, 2, 1)
         )
     def __init__(self, hidden_channel, layer_nums=9,  regression_channel=2048):
         super(AlexNet1D, self).__init__()
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.in_layer = self.make_layers_with_pooling(2, hidden_channel)
         self.hidden_layers = []
         for i in range(layer_nums-2):    #except first & last

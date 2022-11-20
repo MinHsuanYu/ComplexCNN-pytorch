@@ -19,10 +19,10 @@ class ComplexDataset(Dataset):
     def __getitem__(self, index):
         current_data_name = self.data_names[index]
         csv_file = pd.read_csv(os.path.join(self.data_dir, current_data_name))
-        data_input = csv_file.loc[:, ["All_Real", "All_Imag"]].values
-        data_target =  csv_file.loc[:, ["Cr_Real", "Cr_Imag"]].values
-        data_input = torch.tensor(data_input).permute(0, 1)
-        data_target = torch.tensor(data_target).permute(0, 1)
+        data_input = csv_file.loc[:, ["All_Real", "All_Imag"]].values.astype(np.float32)
+        data_target =  csv_file.loc[:, ["Cr_Real", "Cr_Imag"]].values.astype(np.float32)
+        data_input = torch.tensor(data_input).permute(1, 0)
+        data_target = torch.tensor(data_target).permute(1, 0)
         return data_input, data_target
     def __len__(self):
         return self.n_samples

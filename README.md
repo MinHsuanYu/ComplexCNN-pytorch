@@ -6,9 +6,11 @@
 
 暫無Complex Convolution的需求，龜速更新。  
 # Citation
+```bibtex
 @article{trabelsi2017deep,  
   title={Deep complex networks},  
   author={Trabelsi, Chiheb and Bilaniuk, Olexa and Zhang, Ying and Serdyuk, Dmitriy and Subramanian, Sandeep and Santos, Joao Felipe and Mehri, Soroush and Rostamzadeh, Negar and Bengio, Yoshua and Pal, Christopher J},  
   journal={arXiv preprint arXiv:1705.09792},  
   year={2017}  
 }
+```

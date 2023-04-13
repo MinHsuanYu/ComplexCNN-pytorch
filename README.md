@@ -3,7 +3,6 @@
 使用 pytorch 框架實現 1D 與 2D Complex Convolution，目前這兩個 Convolustion Module 已經可以直接使用。("models/complexConv.py")  
 已有實作基本的AlexNet可供使用，所有設定完全依照論文上所示。
 暫無Complex Convolution的需求，龜速更新。
-
 # Citation
 @article{trabelsi2017deep,
   title={Deep complex networks},
